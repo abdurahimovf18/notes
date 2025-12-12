@@ -20,6 +20,12 @@ class Env(BaseSettings):
     DATABASE_PORT: int
     DATABASE_NAME: str
 
+    # Broker settings
+    BROKER_USER: str
+    BROKER_PASSWORD: str
+    BROKER_HOST: str
+    BROKER_PORT: int
+
     model_config = SettingsConfigDict(
         env_file=ROOT / ".env"
     )
@@ -42,3 +48,13 @@ DATABASE_PASSWORD = env.DATABASE_PASSWORD
 DATABASE_HOST = env.DATABASE_HOST
 DATABASE_PORT = env.DATABASE_PORT
 DATABASE_NAME = env.DATABASE_NAME 
+
+# RabbitMQ settings
+BROKER_USER = env.BROKER_USER 
+BROKER_PASSWORD = env.BROKER_PASSWORD
+BROKER_HOST = env.BROKER_HOST
+BROKER_PORT = env.BROKER_PORT
+
+AMQP_URL = (
+    f"amqp://{BROKER_USER}:{BROKER_PASSWORD}@{BROKER_HOST}:{BROKER_PORT}"
+)
