@@ -1,5 +1,4 @@
-from . import subscribers
-from . import di
+from . import di, subscribers
 
 __all__ = [
     "di",

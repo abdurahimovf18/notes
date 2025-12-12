@@ -1,5 +1,4 @@
-from . import di
-from . import routers
+from . import di, routers
 
 __all__ = [
     "di",

@@ -1,4 +1,5 @@
 import logging
+
 from src.infrastructure.faststream.setup import broker
 
 logger = logging.getLogger(__name__)

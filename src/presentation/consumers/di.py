@@ -1,4 +1,5 @@
 from typing import Annotated
+
 from faststream import Depends
 
 from src.framework import container
