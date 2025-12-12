@@ -5,6 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "alembic-postgresql-enum>=1.8.0",
+    "psycopg[binary]>=3.3.2",
+    "sqlalchemy>=2.0.45",
 ]
 
 [dependency-groups]

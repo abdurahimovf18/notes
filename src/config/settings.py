@@ -1,8 +1,8 @@
-from typing import Literal
-from datetime import timezone
+from datetime import UTC
 from pathlib import Path
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import Literal
 
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 
@@ -25,11 +25,11 @@ class Env(BaseSettings):
     )
 
 
-env = Env()  # type: ignore  # noqa
+env = Env()  # type: ignore
 
 # System settings
 DEBUG: bool = env.DEBUG == "true"
-TIMEZONE = timezone.utc
+TIMEZONE = UTC
 
 # Logging settings
 LOG_LEVEL = env.LOG_LEVEL

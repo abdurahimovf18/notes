@@ -7,7 +7,7 @@ InDTO = TypeVar("InDTO", bound=DataTransferObject)
 OutDTO = TypeVar("OutDTO", bound=DataTransferObject)
 
 
-class UseCase(Generic[InDTO, OutDTO], ABC):
+class UseCase(Generic[InDTO, OutDTO], ABC):  # noqa
     
     """
     A base UseCase class. Other *UseCase classes in Application layer should be 

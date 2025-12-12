@@ -1,8 +1,9 @@
 import logging
+
 from fastapi import FastAPI
 
-from src.loader import Loader
 from src.config import settings
+from src.loader import Loader
 
 __all__ = [
     "app",

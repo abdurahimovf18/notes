@@ -1,13 +1,13 @@
-from abc import ABC, abstractmethod
 import uuid
-from typing import TypeVar, Generic
+from abc import ABC, abstractmethod
+from typing import TypeVar
 
 from src.kernel.domain.aggregate import Aggregate
 
 T = TypeVar("T", bound=Aggregate)
 
 
-class Repository(ABC, Generic[T]):
+class Repository[T: Aggregate](ABC):
     
     @abstractmethod
     async def get_by_id(self, id: uuid.UUID) -> T | None: 
