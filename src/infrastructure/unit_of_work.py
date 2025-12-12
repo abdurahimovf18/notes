@@ -1,10 +1,14 @@
 from types import TracebackType
 from typing import Self, cast
 
-from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from src.application.unit_of_work import UnitOfWork
-from src.kernel.application.exceptions.unit_of_work_exceptions import UnitOfWorkAlreadyCompletedError, UnitOfWorkAlreadyInitializedError, UnitOfWorkNotInitializedError
+from src.kernel.application.exceptions.unit_of_work_exceptions import (
+    UnitOfWorkAlreadyCompletedError,
+    UnitOfWorkAlreadyInitializedError,
+    UnitOfWorkNotInitializedError,
+)
 
 
 class SQLAlchemyUnitOfWork(UnitOfWork):

@@ -6,15 +6,13 @@ from faststream.rabbit import RabbitBroker
 
 from src.application.ports.clock import Clock
 from src.application.unit_of_work import UnitOfWork
+from src.config import settings
 from src.framework.container import Container
-
 from src.infrastructure.adapters.utc_clock import UTCClock
 from src.infrastructure.faststream_event_bus import FastStreamEventBus
+from src.infrastructure.sqlalchemy.setup import new_session
 from src.infrastructure.unit_of_work import SQLAlchemyUnitOfWork
 from src.kernel.application.event_bus import EventBus
-from src.infrastructure.sqlalchemy.setup import new_session
-
-from src.config import settings
 
 
 class Loader:
