@@ -1,19 +1,15 @@
 FROM python:3.12-slim
 
-# ---- recommended environment variables ----
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
 WORKDIR /app
 
-COPY uv.lock pyproject.toml ./
+COPY uv.lock pyproject.toml .python-version ./
 
-RUN pip install --no-cache-dir uv \
-    && uv venv \
-    && uv sync --group app --group local
+RUN pip install --no-cache-dir uv 
+
+RUN uv sync --group app --group local
 
 COPY . .
 
 EXPOSE 8000
 
-ENTRYPOINT ["uv", "run", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+ENTRYPOINT ["uv", "run", "uvicorn", "src.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
