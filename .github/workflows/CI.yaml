@@ -73,3 +73,27 @@ jobs:
 
       - name: Run Linters
         run: uv run ruff check .
+
+  lint-type:
+    name: Lint Type
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v6
+
+      - name: Setup UV
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: |
+            **/pyproject.toml
+            **/uv.lock
+          python-version: 3.12
+
+      - name: Install Dependencies
+        run: uv sync --group linters
+
+      - name: Run Linters
+        run: uv run pyright
+        
