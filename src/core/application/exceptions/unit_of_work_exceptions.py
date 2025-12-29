@@ -1,7 +1,7 @@
-from src.core.application.application_exception import ApplicationException
+from src.core.base.exceptions import InternalError
 
 
-class UnitOfWorkException(ApplicationException):
+class UnitOfWorkException(InternalError):
     pass
 
 

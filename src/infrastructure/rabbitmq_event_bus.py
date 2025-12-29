@@ -8,7 +8,7 @@ from faststream.rabbit import ExchangeType, RabbitBroker, RabbitExchange, Rabbit
 from faststream.types import SendableMessage
 from pydantic import BaseModel, create_model
 
-from src.core.application.event_bus import DomainEventT, EventBus
+from src.core.application.event_bus import EventBus
 from src.core.application.exceptions.event_bus_exceptions import (
     EventBusAlreadyClosedError,
     EventBusAlreadyStartedError,
@@ -21,8 +21,16 @@ logger = logging.getLogger(__name__)
 
 
 class RabbitMQEventBus(EventBus):
-    def __init__(self, container: Container, url: str = "amqp://guest:guest@localhost:567") -> None:
-        self._broker = RabbitBroker(url)
+    def __init__(
+            self, 
+            container: Container, 
+            rabbitmq_user: str,
+            rabbitmq_password: str,
+            rabbitmq_host: str,
+            rabbitmq_port: int    
+        ) -> None:
+        self._url = f"amqp://{rabbitmq_user}:{rabbitmq_password}@{rabbitmq_host}:{rabbitmq_port}"
+        self._broker = RabbitBroker(self._url)
         self._app = FastStream(self._broker)
         self._exchange = RabbitExchange(
             name="APP.EXCHANGE", declare=True, durable=True, type=ExchangeType.TOPIC
@@ -62,10 +70,10 @@ class RabbitMQEventBus(EventBus):
             exchange=self._exchange
         )
 
-    def subscribe(
+    def subscribe[T: DomainEvent](
             self, 
-            event: type[DomainEventT], 
-            handler: Callable[[DomainEventT, Container], Awaitable[None]],
+            event: type[T], 
+            handler: Callable[[T, Container], Awaitable[None]],
         ) -> None:
 
         EventModel = self._pydantic_model_from_dataclass(event)

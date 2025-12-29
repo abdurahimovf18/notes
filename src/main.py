@@ -14,5 +14,4 @@ logging.basicConfig(
     format=settings.LOG_FORMAT,
 )
 
-loader = Loader()
-app = FastAPI(lifespan=loader.lifespan)
+app = FastAPI(lifespan=Loader().lifespan)

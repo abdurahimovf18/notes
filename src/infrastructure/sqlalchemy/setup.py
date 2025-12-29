@@ -3,11 +3,9 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 
 from src.config import settings
 
-# SqlAlchemy URL
-# {db}+{driver}://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}
 DATABASE_URL = (
-    f"postgresql+psycopg://{settings.DATABASE_USER}:{settings.DATABASE_PASSWORD}"
-    f"@{settings.DATABASE_HOST}:{settings.DATABASE_PORT}/{settings.DATABASE_NAME}"
+    f"postgresql+psycopg://{settings.POSTGRES_USER}@{settings.POSTGRES_PASSWORD}"
+    f"@{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/{settings.POSTGRES_DB}"
 )
 
 engine = create_async_engine(

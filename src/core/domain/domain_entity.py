@@ -1,7 +1,7 @@
 import uuid
 from itertools import count
 
-from src.core.domain.domain_exception import DomainException
+from src.core.base.exceptions import ForbiddenError
 
 
 class DomainEntity:
@@ -35,7 +35,7 @@ class DomainEntity:
 
     def _check_not_discarded(self) -> None:
         if self._discarded:
-            raise DomainException(f"Attempt to use {self!r}")
+            raise ForbiddenError(f"Attempt to use {self!r}")
 
     @property
     def version(self) -> int:

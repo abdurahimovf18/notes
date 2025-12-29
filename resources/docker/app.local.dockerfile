@@ -1,13 +1,10 @@
-FROM python:3.12-slim
-
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
 WORKDIR /app
 
 COPY uv.lock pyproject.toml .python-version ./
 
-RUN pip install --no-cache-dir uv 
-
-RUN uv sync --group app --group tests --group linters
+RUN uv sync --group app --group tests
 
 COPY . .
 

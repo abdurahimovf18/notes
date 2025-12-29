@@ -1,10 +1,7 @@
 import uuid
 from abc import ABC, abstractmethod
-from typing import TypeVar
 
 from src.core.domain.aggregate import Aggregate
-
-T = TypeVar("T", bound=Aggregate)
 
 
 class Repository[T: Aggregate](ABC):

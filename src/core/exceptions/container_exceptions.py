@@ -1,7 +1,7 @@
-from src.core.base.exceptions.base_application_exception import BaseApplicationException
+from src.core.base.exceptions import InternalError
 
 
-class ContainerException(BaseApplicationException):
+class ContainerException(InternalError):
     pass
 
 

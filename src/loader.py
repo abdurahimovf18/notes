@@ -19,47 +19,57 @@ logger = logging.getLogger(__name__)
 
 
 class Loader:
-
     def __init__(self):
         self.container = Container()
 
     @asynccontextmanager
-    async def lifespan(self, fastapi_app: FastAPI) -> AsyncGenerator[None, None]:
-        self.container.register_singleton(FastAPI, fastapi_app)
-        fastapi_app.include_router(api.routers.router)
+    async def lifespan(self, app: FastAPI) -> AsyncGenerator[None, None]:
         await self.startup()
+        await self.setup_fastapi(app)
         yield
         await self.shutdown()
 
     async def startup(self):
-        await self.setup_core_dependencies()
-        await self.setup_framework_dependencies()
-        await self.register_handlers()
+        await self.setup_event_bus()
+        await self.setup_unit_of_work()
+        await self.setup_clock()
 
+    async def shutdown(self):
+        await self.cleanup_event_bus()
+
+    async def setup_fastapi(self, app: FastAPI) -> None:
+        app.dependency_overrides[api.dependency_injection.get_container] = (
+            self.get_container
+        ) 
+        self.container.register_singleton(FastAPI, app)
+
+    async def setup_event_bus(self) -> None:
+        self.container.register_singleton(
+            EventBus, 
+            RabbitMQEventBus(
+                self.container, 
+                settings.RABBITMQ_USER, 
+                settings.RABBITMQ_PASSWORD,
+                settings.RABBITMQ_HOST,
+                settings.RABBITMQ_PORT
+            )
+        )
         event_bus = await self.container.resolve(EventBus)
         await event_bus.start()
 
-    async def shutdown(self):
+    async def cleanup_event_bus(self) -> None:
         event_bus = await self.container.resolve(EventBus)
         await event_bus.stop()
 
-    async def setup_core_dependencies(self) -> None:
-        self.container.register_singleton(
-            EventBus, RabbitMQEventBus(self.container, settings.AMQP_URL)
-        )
+    async def setup_clock(self) -> None:
         self.container.register_singleton(Clock, UTCClock())
-        self.container.register_sync_factory(UnitOfWork, lambda: SQLAlchemyUnitOfWork(new_session))
-    
-    async def setup_framework_dependencies(self):
-        fastapi_app = await self.container.resolve(FastAPI)
-        fastapi_app.dependency_overrides[api.dependency_injection.get_container] = (
-            self.get_container
-        ) 
-    
+
+    async def setup_unit_of_work(self) -> None:
+        self.container.register_sync_factory(
+            UnitOfWork, 
+            lambda: SQLAlchemyUnitOfWork(new_session)
+        )
+
     async def get_container(self) -> Container:
         return self.container
-    
-    async def register_handlers(self):
-        # event_bus = await self.container.resolve(EventBus)
-        pass
     

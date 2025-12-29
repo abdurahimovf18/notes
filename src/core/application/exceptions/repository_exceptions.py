@@ -1,18 +1,23 @@
-from src.core.application.application_exception import ApplicationException
+from src.core.base.exceptions import (
+    ApplicationException,
+    ConflictError,
+    ForbiddenError,
+    NotFoundError,
+)
 
 
 class RepositoryException(ApplicationException):
     pass
 
 
-class NotFoundError(RepositoryException):
+class AggregateNotFoundError(NotFoundError):
     """
     Raised on attempt to update or delete aggregate that does not exist.
     """
     pass
 
 
-class ConflictError(RepositoryException):
+class AggregateAlreadyExistsError(ConflictError):
     """
     Raised on attempt to create a new aggregate with unique credentials that
     already exists.
@@ -20,7 +25,7 @@ class ConflictError(RepositoryException):
     pass
 
 
-class VersionMismatchError(RepositoryException):
+class VersionMismatchError(ForbiddenError):
     """
     Raised on attempt to update an aggregate, but its version is old.
     """
