@@ -21,6 +21,7 @@ app = [
     "uvicorn>=0.38.0",
     "faststream[rabbit]>=0.6.4",
     "gunicorn>=23.0.0",
+    "python-json-logger>=4.0.0",
 ]
 tests = [
     "pytest>=9.0.2",

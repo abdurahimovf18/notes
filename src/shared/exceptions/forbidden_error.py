@@ -1,4 +1,4 @@
-from src.core.exceptions import ApplicationException
+from src.shared.exceptions import ApplicationException
 
 
 class ForbiddenError(ApplicationException):

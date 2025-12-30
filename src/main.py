@@ -1,4 +1,5 @@
 import logging
+import logging.config
 
 from fastapi import FastAPI
 
@@ -9,9 +10,6 @@ __all__ = [
     "app",
 ]
 
-logging.basicConfig(
-    level=settings.LOG_LEVEL,
-    format=settings.LOG_FORMAT,
-)
+logging.config.dictConfig(settings.LOGGING_DICT_CONFIG)
 
 app = FastAPI(lifespan=Loader().lifespan)

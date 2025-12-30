@@ -1,18 +1,21 @@
-from src.core.exceptions import InternalError
+from src.shared.exceptions import (
+    ApplicationException,
+    InternalError
+)
 
 
-class UnitOfWorkException(InternalError):
+class UnitOfWorkException(ApplicationException):
     pass
 
 
-class UnitOfWorkNotInitializedError(UnitOfWorkException):
+class UnitOfWorkNotInitializedError(UnitOfWorkException, InternalError):
     """
     Raised on attempt to call unit of work methods outside context manager.
     """
     pass
 
 
-class UnitOfWorkAlreadyInitializedError(UnitOfWorkException):
+class UnitOfWorkAlreadyInitializedError(UnitOfWorkException, InternalError):
     """
     Raised on attempt to call context manager inside another context manager.
     A code example:
@@ -24,7 +27,7 @@ class UnitOfWorkAlreadyInitializedError(UnitOfWorkException):
     pass
 
 
-class UnitOfWorkAlreadyCompletedError(UnitOfWorkException):
+class UnitOfWorkAlreadyCompletedError(UnitOfWorkException, InternalError):
     """
     Raised on attempt to call .commit or .rollback methods second time in one
     context manager.
