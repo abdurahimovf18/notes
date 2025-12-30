@@ -8,14 +8,14 @@ from faststream.rabbit import ExchangeType, RabbitBroker, RabbitExchange, Rabbit
 from faststream.types import SendableMessage
 from pydantic import BaseModel, create_model
 
-from src.core.application.event_bus import EventBus
-from src.core.application.exceptions.event_bus_exceptions import (
+from src.application.event_bus import EventBus
+from src.application.exceptions.event_bus_exceptions import (
     EventBusAlreadyClosedError,
     EventBusAlreadyStartedError,
     EventBusNotStartedError,
 )
-from src.core.container import Container
-from src.core.domain.domain_event import DomainEvent
+from src.application.ports.container import Container
+from src.domain.events.domain_event import DomainEvent
 
 logger = logging.getLogger(__name__)
 

@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from src.core import container
+from src.application.ports import container
 
 
 async def get_container() -> container.Container:

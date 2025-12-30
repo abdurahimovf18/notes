@@ -1,4 +1,4 @@
-from src.core.base.exceptions import InternalError
+from src.core.exceptions import InternalError
 
 
 class ContainerException(InternalError):

@@ -1,4 +1,4 @@
-from src.core.base.exceptions import (
+from src.core.exceptions import (
     ApplicationException,
     ConflictError,
     ForbiddenError,

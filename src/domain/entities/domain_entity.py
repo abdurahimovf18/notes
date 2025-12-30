@@ -1,7 +1,7 @@
 import uuid
 from itertools import count
 
-from src.core.base.exceptions import ForbiddenError
+from src.core.exceptions import ForbiddenError
 
 
 class DomainEntity:

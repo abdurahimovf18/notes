@@ -1,7 +1,7 @@
 from collections.abc import Awaitable, Callable
 from typing import TypeVar, cast
 
-from src.core.exceptions.container_exceptions import (
+from src.application.exceptions.container_exceptions import (
     InterfaceAlreadyRegisteredError,
     InterfaceNotRegisteredError,
 )
@@ -10,11 +10,7 @@ T = TypeVar("T")
 
 
 class Container:
-    """
-    This is a Container which allows implement Dependency Injection easily
-    into application. It allows register `Interfaces` with the way,
-    """
-
+    
     def __init__(self) -> None:
         self._async_factories: dict[type[object], Callable[[], Awaitable[object]]] = {}
         self._sync_factories: dict[type[object], Callable[[], object]] = {}

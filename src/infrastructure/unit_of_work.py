@@ -3,12 +3,12 @@ from typing import Self, cast
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from src.application.unit_of_work import UnitOfWork
-from src.core.application.exceptions.unit_of_work_exceptions import (
+from src.application.exceptions.unit_of_work_exceptions import (
     UnitOfWorkAlreadyCompletedError,
     UnitOfWorkAlreadyInitializedError,
     UnitOfWorkNotInitializedError,
 )
+from src.application.unit_of_work import UnitOfWork
 
 
 class SQLAlchemyUnitOfWork(UnitOfWork):
