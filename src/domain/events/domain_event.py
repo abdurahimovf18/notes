@@ -7,8 +7,8 @@ from datetime import UTC, datetime
 class DomainEvent:
     """Base class for domain events."""
     
-    # Class-level constant — shared across all instances
-    event_name: str = "undefined"
+    # Class-level constant - defines event name
+    event_name: str = field(init=False, default="undefined")
     
     # Auto-incrementing event ID (shared counter)
     event_id: uuid.UUID = field(default_factory=uuid.uuid4, init=False)
@@ -21,3 +21,4 @@ class DomainEvent:
             f"event_id={self.event_id} "
             f"occured_at={self.occured_at.isoformat()}>"
         )
+    

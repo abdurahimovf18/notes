@@ -1,6 +1,6 @@
 import logging
 from collections.abc import Awaitable, Callable
-from dataclasses import asdict, fields, is_dataclass
+from dataclasses import asdict, fields
 from typing import cast
 
 from faststream import FastStream
@@ -91,25 +91,21 @@ class RabbitMQEventBus(EventBus):
 
     @staticmethod
     def _pydantic_model_from_dataclass(event_type: type[DomainEvent]) -> type[BaseModel]:
-        if not is_dataclass(event_type):
-            raise TypeError(f"{event_type.__name__} is not a dataclass")
-
         fields: dict[str, type[object]] = {}
         for name, annotation in event_type.__annotations__.items():
             fields[name] = annotation
 
-        return create_model(  # type: ignore
-            event_type.__name__ + "Model", **fields  # type: ignore
-        )
+        pydantic_model = create_model(event_type.__name__ + "Model", **fields)  # type: ignore
+        return pydantic_model
     
     @staticmethod
     def _get_event_name(event_type: type[DomainEvent]) -> str:
-        if not is_dataclass(event_type):
-            raise TypeError(f"{event_type.__name__} is not a dataclass")
-        
+        event_name = "undefined"
+
         for f in fields(event_type):
             if f.name == "event_name":
-                return cast(str, f.default)
-        else:
-            raise KeyError("DomainEvent must contain event_name with default value.")
-        
+                event_name = cast(str, f.default)
+                break
+
+        return event_name        
+    
