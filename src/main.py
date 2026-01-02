@@ -10,6 +10,7 @@ the composition root and manages application startup and shutdown.
 """
 
 import logging
+
 # Required so `logging.config.dictConfig` is available
 import logging.config
 

@@ -6,8 +6,8 @@ from fastapi import FastAPI
 
 from src.application.event_bus import EventBus
 from src.application.ports.clock import Clock
-from src.application.unit_of_work import UnitOfWork
 from src.application.ports.container import Container
+from src.application.unit_of_work import UnitOfWork
 from src.config import settings
 from src.infrastructure.adapters.dict_container import DictContainer
 from src.infrastructure.adapters.utc_clock import UTCClock

@@ -74,3 +74,4 @@ class SQLAlchemyUnitOfWork(UnitOfWork):
 
     def _mark_transaction_completed(self) -> None:
         self._transaction_completed = True
+        

@@ -54,7 +54,6 @@ class RabbitMQEventBus(EventBus):
                 "Attempt to call .close method second time without starting."
             )
         self._is_started = False
-
         await self._app.stop()
 
     async def publish(self, event: DomainEvent) -> None:
