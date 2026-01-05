@@ -52,6 +52,8 @@ class Loader:
         logger.debug("FastAPI dependencies overriden")
         self.container.register_singleton(FastAPI, app)
         logger.debug("FastAPI registered")
+        app.include_router(api.routers.router)
+        logger.debug("FastAPI routers included")
 
     async def setup_event_bus(self) -> None:
         self.container.register_singleton(

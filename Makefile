@@ -53,29 +53,29 @@ lock:
 
 # Migration Commands
 migrate-head:
-	docker compose exec api uv run alembic upgrade head
+	docker compose exec app uv run alembic upgrade head
 
 migrate-base:
-	docker compose exec api uv run alembic downgrade base
+	docker compose exec app uv run alembic downgrade base
 
 migrate-new:
-	docker compose exec api uv run alembic stamp head
+	docker compose exec app uv run alembic stamp head
 
 migrate-collect:
-	docker compose exec api uv run alembic revision --autogenerate
+	docker compose exec app uv run alembic revision --autogenerate
 
 migrate-up:
-	docker compose exec api uv run alembic upgrade +1
+	docker compose exec app uv run alembic upgrade +1
 
 migrate-down:
-	docker compose exec api uv run alembic downgrade -1
+	docker compose exec app uv run alembic downgrade -1
 
 # Shell Open Commands
 shell:
-	docker compose exec api bash
+	docker compose exec app bash
 
 shell-db:
-	docker compose exec database psql -U postgres -d postgres
+	docker compose exec postgres psql -U postgres -d postgres
 
 # Tree Command
 tree:

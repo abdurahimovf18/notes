@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from src.application.data_transfer_objects.data_transfer_object import DataTransferObject
+from src.application.data_transfer_objects.shared.data_transfer_object import DataTransferObject
 
 
 class UseCase[I: DataTransferObject, O: DataTransferObject](Protocol):

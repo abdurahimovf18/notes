@@ -9,6 +9,9 @@ from src.application.exceptions.unit_of_work_exceptions import (
     UnitOfWorkNotInitializedError,
 )
 from src.application.unit_of_work import UnitOfWork
+from src.infrastructure.repositories.sqlalchemy.sqlalchemy_note_repository import (
+    SqlAlchemyNoteRepository,
+)
 
 
 class SQLAlchemyUnitOfWork(UnitOfWork):
@@ -20,7 +23,7 @@ class SQLAlchemyUnitOfWork(UnitOfWork):
         self._transaction_completed = False
 
     def _register_repositories(self, session: AsyncSession) -> None:
-        pass
+        self.notes = SqlAlchemyNoteRepository(session)
 
     async def __aenter__(self) -> Self:
         self._check_not_initialized()

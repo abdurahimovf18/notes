@@ -1,12 +1,12 @@
 from types import TracebackType
 from typing import Protocol, Self
 
+from src.application.repositories.note_repository import NoteRepository
+
 
 class UnitOfWork(Protocol):
     # Write your repositories right here...
-    # e.g.
-    # users: UserRepository
-    # products: ProductRepository
+    notes: NoteRepository
 
     async def __aenter__(self) -> Self: ...
     

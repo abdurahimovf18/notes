@@ -4,6 +4,7 @@ from src.shared.exceptions import (
     ForbiddenError,
     NotFoundError,
 )
+from src.shared.exceptions.invalid_data_error import InvalidDataError
 
 
 class RepositoryException(ApplicationException):
@@ -30,3 +31,9 @@ class VersionMismatchError(ForbiddenError, RepositoryException):
     Raised on attempt to update an aggregate, but its version is old.
     """
     pass
+
+
+class PaginationOutOfRangeError(InvalidDataError, RepositoryException):
+    """
+    Raised on attempt to run paginations with invalid parameters.
+    """

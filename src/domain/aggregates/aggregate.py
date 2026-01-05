@@ -1,3 +1,4 @@
+import uuid
 from uuid import UUID
 
 from src.domain.entities.domain_entity import DomainEntity
@@ -20,3 +21,7 @@ class Aggregate(DomainEntity):
     
     def _clear_events(self) -> None:
         self._domain_events = []
+
+    def _get_id(self) -> uuid.UUID:
+        return uuid.uuid4()
+    
